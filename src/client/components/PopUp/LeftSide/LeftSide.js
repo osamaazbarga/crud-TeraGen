@@ -71,7 +71,7 @@ const LeftSide = () => {
                     bubble&&bubble.map((bub,i)=>{
                         if(i<5)
                         return <div className='box-item'>
-                            <button className='delete-tag'>X</button>
+                            {/* <button className='delete-tag'>X</button> */}
                              <div className='bub-title'>{bub.title}</div>
                              <div className='bub-text'>{bub.text}</div>
                          </div>
