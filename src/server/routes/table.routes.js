@@ -34,4 +34,28 @@ router.post('/addbubble',async (req, res) => {
     }
 })
 
+router.delete('/removebubble/:id',async(req,res)=>{
+    try {
+        const deleted =await Table.findOneAndDelete({_id:req.params.id}).exec()
+        res.json(deleted)
+        
+    } catch (error) {
+        res.status(400).send("Create Delete Failed")
+        
+    }
+})
+
+router.delete('/removebubbles',async(req,res)=>{
+    try {
+        const deleted =await Table.deleteMany({}).exec()
+        res.json(deleted)
+        
+    } catch (error) {
+        res.status(400).send("Create Delete Failed")
+        
+    }
+})
+
+
+
 module.exports=router

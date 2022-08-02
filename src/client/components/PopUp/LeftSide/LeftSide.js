@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './LeftSide.css'
-import {createBubble,getBubbles} from '../../../function/bubble'
+import {createBubble,getBubbles,removeBubble} from '../../../function/bubble'
 const LeftSide = () => {
     const [charCount,setCharCount]=useState(0);
     const [value,setValue]=useState({title:'',text:''});
@@ -31,17 +31,28 @@ const LeftSide = () => {
         .then(res=>{
             console.log('res',res);
             // window.alert(`"${res.data.title}" is created`)
-            window.alert(`"${{value}}" is created`)
+            loadBubbles()
             // window.location.reload()
+            setValue({title:'',text:''})
         })
-        .catch(err=>{
-            console.log(err);
-            // if(err.response.status===400) {
+        
+    }
+
+
+    const handleRemove=async(id)=>{
+        
+            removeBubble(id)
+            .then(res=>{
+                loadBubbles()
+            })
+            // .catch((err)=>{
+                
+            //     if(err.response.status===400) {
                     
-            //     toast.error(err.response.data)
-            // }
-            toast.error(err.response.data.err)
-        })
+            //         toast.error(err.response.data)
+            //     }
+            // })
+        
     }
 
 
@@ -59,7 +70,7 @@ const LeftSide = () => {
                 <div className='text'>
                     <input name="text" id="input-text" onChange={(e)=>{handleChange(e)}}  className='text-input' placeholder="Write your review text"/>
                     {charCount>0?<button onClick={(e)=>handleSubmit(e)} className='add-btn'>Add</button>:
-                    <button onClick={(e)=>handleSubmit(e)} className='close-add-btn'>Add</button>}
+                    <button className='close-add-btn'>Add</button>}
 
                 </div>
             </div>
@@ -68,10 +79,10 @@ const LeftSide = () => {
                 {
                     bubble&&bubble.length<0?
                     <div>No reviews added yet.<br/> Learn how to add reviews</div>:
-                    bubble&&bubble.map((bub,i)=>{
+                    bubble&&bubble.slice(0).reverse().map((bub,i)=>{
                         if(i<5)
-                        return <div className='box-item'>
-                            {/* <button className='delete-tag'>X</button> */}
+                        return <div key={i} className='box-item'>
+                            <button onClick={()=>handleRemove(bub._id)} className='delete-tag'>X</button>
                              <div className='bub-title'>{bub.title}</div>
                              <div className='bub-text'>{bub.text}</div>
                          </div>
