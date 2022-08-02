@@ -1,8 +1,15 @@
-h1 {
-  color: green;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Assistant';
+  font-style: normal;
 }
-
-body {
-  text-align: center;
-  margin: auto;
+main{
+  padding: 32px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
